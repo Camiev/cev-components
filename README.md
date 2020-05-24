@@ -1,13 +1,13 @@
-# cev-template
+# cev-components
 
-> Template by CEV to simple page
+> components by CEV to simple page
 
-[![NPM](https://img.shields.io/npm/v/cev-template.svg)](https://www.npmjs.com/package/cev-template) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/cev-components.svg)](https://www.npmjs.com/package/cev-components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save cev-template
+npm install --save cev-components
 ```
 
 ## Usage
@@ -15,12 +15,19 @@ npm install --save cev-template
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'cev-template'
-import 'cev-template/dist/index.css'
+import { Division, Presentation, Footer, Header } from 'cev-components';
 
-class Example extends Component {
+class ExampleDivision extends Component {
   render() {
-    return <MyComponent />
+    return <Division
+      title={title}
+      description={description}
+      image={image}
+      youtubeId={youtubeId}
+      instagramId={instagramId}
+      key={key}
+      isMain
+    />
   }
 }
 ```
