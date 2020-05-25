@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save cev-components
+npm install --save https://github.com/Camiev/cev-components
 ```
 
 ## Usage
