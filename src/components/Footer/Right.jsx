@@ -3,13 +3,15 @@ import { Grid, Box, Link } from '@material-ui/core';
 import {
   Facebook as FacebookIcon,
   LinkedIn as LinkedInIcon,
+  Instagram as InstagramIcon,
 } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 
 const SocialNetworkIcon = ({ children }) => {
   const items = [
-    { component: <FacebookIcon color="primary" />, name: 'facebook' },
-    { component: <LinkedInIcon color="primary" />, name: 'linkedin' },
+    { component: <FacebookIcon color="secondary" />, name: 'facebook' },
+    { component: <LinkedInIcon color="secondary" />, name: 'linkedin' },
+    { component: <InstagramIcon color="secondary" />, name: 'instagram' }
   ];
   return items.find((item) => item.name === children).component || null;
 };

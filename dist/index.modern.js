@@ -1,47 +1,51 @@
-import React from 'react';
-import { Grid, Icon, Avatar, Typography, Card, CardActionArea, CardMedia, Box, Button, Link as Link$1, Container, Hidden, IconButton, Menu, MenuItem, AppBar, Toolbar } from '@material-ui/core';
+import React, { Fragment } from 'react';
+import { Box, Icon, Avatar, Typography, Card, CardActionArea, CardMedia, Button, Grid, Link as Link$1, Container, Hidden, IconButton, Menu, MenuItem, AppBar, Toolbar } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Facebook, LinkedIn } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import { Facebook, LinkedIn, Instagram } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
+import styled from 'styled-components';
 
-let _ = t => t,
-    _t;
-const gray = '#858588';
-const style = styled.div(_t || (_t = _`
-  .contents {
-    color: ${0};
+var gray = '#858588';
+var useStyles = makeStyles({
+  contents: {
+    color: gray
+  },
+  iconList: {
+    verticalAlign: 'middle'
+  },
+  mt: {
+    marginTop: '.5em'
+  },
+  mb: {
+    marginBottom: '.5em'
+  },
+  mainBox: {
+    marginTop: '1em',
+    marginBottom: '1em'
   }
-  .icon-list {
-    vertical-align: middle;
-  }
-  .card {
-    margin-top: 1em;
-  }
-`), gray);
+});
 
-const Division = props => {
-  const {
-    icon,
-    title,
-    avatar,
-    description,
-    rol,
-    path,
-    items,
-    isMain,
-    children,
-    textButton,
-    image,
-    youtubeId,
-    instagramId
-  } = props;
-  return /*#__PURE__*/React.createElement(style, null, (icon || avatar || title || rol) && /*#__PURE__*/React.createElement(Grid, {
-    item: true,
-    xs: 12,
-    align: "center"
+var Division = function Division(props) {
+  var icon = props.icon,
+      title = props.title,
+      avatar = props.avatar,
+      description = props.description,
+      descriptionAlign = props.descriptionAlign,
+      subtitle = props.subtitle,
+      path = props.path,
+      items = props.items,
+      isMain = props.isMain,
+      children = props.children,
+      textButton = props.textButton,
+      image = props.image,
+      youtubeId = props.youtubeId,
+      instagramId = props.instagramId;
+  var classes = useStyles();
+  return /*#__PURE__*/React.createElement(Fragment, null, (icon || avatar || title || subtitle || image) && /*#__PURE__*/React.createElement(Box, {
+    align: "center",
+    className: classes.mainBox
   }, icon && /*#__PURE__*/React.createElement(Icon, {
     fontSize: "large"
   }, icon), avatar && /*#__PURE__*/React.createElement(Avatar, {
@@ -53,63 +57,53 @@ const Division = props => {
   }, title), image && /*#__PURE__*/React.createElement(Link, {
     to: path
   }, /*#__PURE__*/React.createElement(Card, {
-    className: "card"
+    className: classes.mt
   }, /*#__PURE__*/React.createElement(CardActionArea, null, /*#__PURE__*/React.createElement(CardMedia, {
     component: "img",
     alt: title,
     height: "140",
     image: image,
     title: title
-  })))), rol && /*#__PURE__*/React.createElement(Typography, {
+  })))), subtitle && /*#__PURE__*/React.createElement(Typography, {
     variant: "subtitle1"
-  }, rol)), (description || youtubeId || instagramId || items.length > 0) && /*#__PURE__*/React.createElement(Grid, {
-    container: true,
-    spacing: 0,
-    direction: "column",
-    alignItems: "center",
-    justify: "center"
-  }, /*#__PURE__*/React.createElement(Grid, {
-    item: true,
-    xs: 12,
-    sm: isMain ? 8 : 12,
-    className: "contents"
+  }, subtitle)), (description || youtubeId || instagramId || items.length > 0) && /*#__PURE__*/React.createElement(Box, {
+    className: classes.contents
   }, description && /*#__PURE__*/React.createElement(Typography, {
     variant: isMain ? 'h5' : 'subtitle2',
-    align: isMain ? 'center' : 'justify'
+    align: descriptionAlign || 'center'
   }, description), youtubeId && /*#__PURE__*/React.createElement(Card, {
-    className: "card"
+    className: classes.card
   }, /*#__PURE__*/React.createElement(CardActionArea, null, /*#__PURE__*/React.createElement(CardMedia, {
     component: "iframe",
     title: "Video",
     height: isMain ? '480' : '240',
-    src: `https://www.youtube.com/embed/${youtubeId}`
+    src: "https://www.youtube.com/embed/" + youtubeId
   }))), instagramId && /*#__PURE__*/React.createElement(Card, {
-    className: "card"
+    className: classes.card
   }, /*#__PURE__*/React.createElement(CardActionArea, null, /*#__PURE__*/React.createElement(CardMedia, {
     component: "iframe",
     title: "Video",
     height: isMain ? '800' : '400',
-    src: `https://www.instagram.com/p/${instagramId}/embed`
-  }))), items.length > 0 && items.map(item => /*#__PURE__*/React.createElement(Typography, {
-    variant: "subtitle2",
-    key: item.key,
-    align: "justify"
-  }, /*#__PURE__*/React.createElement(Icon, {
-    fontSize: "small",
-    className: "icon-list"
-  }, "arrow_right"), `${item.description}`)))), path && /*#__PURE__*/React.createElement(Grid, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/React.createElement(Box, {
+    src: "https://www.instagram.com/p/" + instagramId + "/embed"
+  }))), items.length > 0 && items.map(function (item) {
+    return /*#__PURE__*/React.createElement(Typography, {
+      variant: "subtitle2",
+      key: item.key,
+      align: "justify"
+    }, /*#__PURE__*/React.createElement(Icon, {
+      fontSize: "small",
+      className: classes.iconList
+    }, "arrow_right"), "" + item.description);
+  })), path && /*#__PURE__*/React.createElement(Box, {
     align: "center",
-    mb: 3
+    mt: 1
   }, /*#__PURE__*/React.createElement(Button, {
     component: Link,
     variant: "contained",
     to: path,
     color: "primary",
-    className: "button-more"
-  }, textButton))), children);
+    className: classes.buttonMore
+  }, textButton)), children);
 };
 
 Division.defaultProps = {
@@ -117,7 +111,8 @@ Division.defaultProps = {
   avatar: '',
   icon: '',
   description: '',
-  rol: [],
+  descriptionAlign: '',
+  subtitle: [],
   path: '',
   items: [],
   isMain: false,
@@ -132,7 +127,8 @@ Division.propTypes = {
   title: PropTypes.string,
   avatar: PropTypes.string,
   description: PropTypes.string,
-  rol: PropTypes.node,
+  descriptionAlign: PropTypes.string,
+  subtitle: PropTypes.node,
   path: PropTypes.string,
   items: PropTypes.array,
   isMain: PropTypes.bool,
@@ -143,23 +139,24 @@ Division.propTypes = {
   instagramId: PropTypes.string
 };
 
-const Left = ({
-  facebookIframe
-}) => /*#__PURE__*/React.createElement(Grid, {
-  item: true,
-  xs: 12,
-  sm: 4,
-  align: "left"
-}, /*#__PURE__*/React.createElement("iframe", {
-  key: "iframe",
-  title: "iframe-facebook",
-  src: facebookIframe,
-  width: "340",
-  height: "160",
-  scrolling: "no",
-  frameBorder: "0",
-  allow: "encrypted-media"
-}));
+var Left = function Left(_ref) {
+  var facebookIframe = _ref.facebookIframe;
+  return /*#__PURE__*/React.createElement(Grid, {
+    item: true,
+    xs: 12,
+    sm: 4,
+    align: "left"
+  }, /*#__PURE__*/React.createElement("iframe", {
+    key: "iframe",
+    title: "iframe-facebook",
+    src: facebookIframe,
+    width: "340",
+    height: "160",
+    scrolling: "no",
+    frameBorder: "0",
+    allow: "encrypted-media"
+  }));
+};
 
 Left.defaultProps = {
   facebookIframe: ''
@@ -168,49 +165,58 @@ Left.propTypes = {
   facebookIframe: PropTypes.string
 };
 
-const SocialNetworkIcon = ({
-  children
-}) => {
-  const items = [{
+var SocialNetworkIcon = function SocialNetworkIcon(_ref) {
+  var children = _ref.children;
+  var items = [{
     component: /*#__PURE__*/React.createElement(Facebook, {
-      color: "primary"
+      color: "secondary"
     }),
     name: 'facebook'
   }, {
     component: /*#__PURE__*/React.createElement(LinkedIn, {
-      color: "primary"
+      color: "secondary"
     }),
     name: 'linkedin'
+  }, {
+    component: /*#__PURE__*/React.createElement(Instagram, {
+      color: "secondary"
+    }),
+    name: 'instagram'
   }];
-  return items.find(item => item.name === children).component || null;
+  return items.find(function (item) {
+    return item.name === children;
+  }).component || null;
 };
 
-const Right = ({
-  texts,
-  rrss
-}) => {
+var Right = function Right(_ref2) {
+  var texts = _ref2.texts,
+      rrss = _ref2.rrss;
   return /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 12,
     sm: 4,
     align: "right"
-  }, texts.map(text => text.includes('@') ? /*#__PURE__*/React.createElement(Link$1, {
-    href: `mailto:${text}`,
-    color: "inherit",
-    key: text
-  }, /*#__PURE__*/React.createElement(Box, {
+  }, texts.map(function (text) {
+    return text.includes('@') ? /*#__PURE__*/React.createElement(Link$1, {
+      href: "mailto:" + text,
+      color: "inherit",
+      key: text
+    }, /*#__PURE__*/React.createElement(Box, {
+      mt: 1
+    }, text)) : /*#__PURE__*/React.createElement(Box, {
+      mt: 1,
+      key: text
+    }, text);
+  }), /*#__PURE__*/React.createElement(Box, {
     mt: 1
-  }, text)) : /*#__PURE__*/React.createElement(Box, {
-    mt: 1,
-    key: text
-  }, text)), /*#__PURE__*/React.createElement(Box, {
-    mt: 1
-  }, rrss.map(item => /*#__PURE__*/React.createElement(Link$1, {
-    key: item.name,
-    href: item.link,
-    target: "_blank",
-    rel: "noopener noreferrer "
-  }, /*#__PURE__*/React.createElement(SocialNetworkIcon, null, item.name)))));
+  }, rrss.map(function (item) {
+    return /*#__PURE__*/React.createElement(Link$1, {
+      key: item.name,
+      href: item.link,
+      target: "_blank",
+      rel: "noopener noreferrer "
+    }, /*#__PURE__*/React.createElement(SocialNetworkIcon, null, item.name));
+  })));
 };
 
 Right.defaultProps = {
@@ -232,25 +238,25 @@ var Style = makeStyles({
     marginTop: '2em',
     paddingTop: '2em'
   },
-  downFooter: props => ({
-    backgroundColor: props.downBackgroundColor,
-    color: 'white'
-  })
+  downFooter: function downFooter(props) {
+    return {
+      backgroundColor: props.downBackgroundColor,
+      color: 'white'
+    };
+  }
 });
 
-const Footer = props => {
-  const {
-    facebookIframe,
-    name,
-    description,
-    texts,
-    rrss,
-    downBackgroundColor
-  } = props;
-  const classes = Style({
-    downBackgroundColor
+var Footer = function Footer(props) {
+  var facebookIframe = props.facebookIframe,
+      name = props.name,
+      description = props.description,
+      texts = props.texts,
+      rrss = props.rrss,
+      downBackgroundColor = props.downBackgroundColor;
+  var classes = Style({
+    downBackgroundColor: downBackgroundColor
   });
-  const currentYear = new Date().getFullYear();
+  var currentYear = new Date().getFullYear();
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: classes.footer
   }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement(Grid, {
@@ -272,7 +278,7 @@ const Footer = props => {
     item: true,
     sm: 12,
     align: "center"
-  }, `${name.toUpperCase()} ${description} | Todos los derechos reservados © ${currentYear}`))));
+  }, name.toUpperCase() + " " + description + " | Todos los derechos reservados \xA9 " + currentYear))));
 };
 
 Footer.defaultProps = {
@@ -295,25 +301,27 @@ Footer.propTypes = {
   }))
 };
 
-const MenuDesktop = ({
-  menuItems
-}) => {
-  const {
-    pathname
-  } = useLocation();
-  const initPathname = `/${pathname.split('/')[1]}` || null;
+var MenuDesktop = function MenuDesktop(_ref) {
+  var menuItems = _ref.menuItems;
+
+  var _useLocation = useLocation(),
+      pathname = _useLocation.pathname;
+
+  var initPathname = "/" + pathname.split('/')[1] || null;
   return /*#__PURE__*/React.createElement(Hidden, {
     smDown: true
-  }, menuItems.map(menu => /*#__PURE__*/React.createElement(Button, {
-    color: "inherit",
-    component: Link,
-    to: menu.path,
-    key: menu.key
-  }, /*#__PURE__*/React.createElement(Icon, {
-    className: "iconDesktop"
-  }, menu.icon), /*#__PURE__*/React.createElement("span", null, menu.title, initPathname === menu.path && /*#__PURE__*/React.createElement("span", {
-    className: "line-bottom"
-  })))));
+  }, menuItems.map(function (menu) {
+    return /*#__PURE__*/React.createElement(Button, {
+      color: "inherit",
+      component: Link,
+      to: menu.path,
+      key: menu.key
+    }, /*#__PURE__*/React.createElement(Icon, {
+      className: "iconDesktop"
+    }, menu.icon), /*#__PURE__*/React.createElement("span", null, menu.title, initPathname === menu.path && /*#__PURE__*/React.createElement("span", {
+      className: "line-bottom"
+    })));
+  }));
 };
 
 MenuDesktop.defaultProps = {
@@ -323,16 +331,16 @@ MenuDesktop.propTypes = {
   menuItems: PropTypes.array
 };
 
-const MenuMobile = ({
-  menuItems,
-  anchorEl,
-  setAnchorEl
-}) => {
-  const handleClick = event => {
+var MenuMobile = function MenuMobile(_ref) {
+  var menuItems = _ref.menuItems,
+      anchorEl = _ref.anchorEl,
+      setAnchorEl = _ref.setAnchorEl;
+
+  var handleClick = function handleClick(event) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  var handleClose = function handleClose() {
     setAnchorEl(null);
   };
 
@@ -350,12 +358,14 @@ const MenuMobile = ({
     keepMounted: true,
     open: Boolean(anchorEl),
     onClose: handleClose
-  }, menuItems.map(menu => /*#__PURE__*/React.createElement(MenuItem, {
-    component: Link,
-    to: menu.path,
-    onClick: handleClose,
-    key: menu.key
-  }, menu.title))));
+  }, menuItems.map(function (menu) {
+    return /*#__PURE__*/React.createElement(MenuItem, {
+      component: Link,
+      to: menu.path,
+      onClick: handleClose,
+      key: menu.key
+    }, menu.title);
+  })));
 };
 
 MenuMobile.defaultProps = {
@@ -365,19 +375,20 @@ MenuMobile.propTypes = {
   menuItems: PropTypes.array
 };
 
-const Logo = ({
-  image,
-  alt
-}) => /*#__PURE__*/React.createElement(Typography, {
-  variant: "h6",
-  className: "title"
-}, /*#__PURE__*/React.createElement(Link, {
-  to: "/"
-}, image && /*#__PURE__*/React.createElement("img", {
-  src: image,
-  alt: alt,
-  className: "image"
-})));
+var Logo = function Logo(_ref) {
+  var image = _ref.image,
+      alt = _ref.alt;
+  return /*#__PURE__*/React.createElement(Typography, {
+    variant: "h6",
+    className: "title"
+  }, /*#__PURE__*/React.createElement(Link, {
+    to: "/"
+  }, image && /*#__PURE__*/React.createElement("img", {
+    src: image,
+    alt: alt,
+    className: "image"
+  })));
+};
 
 Logo.defaultProps = {
   image: '',
@@ -388,57 +399,40 @@ Logo.propTypes = {
   alt: PropTypes.string
 };
 
-let _$1 = t => t,
-    _t$1;
-const Style$1 = styled.div.attrs(props => ({
-  backgroundColor: props.backgroundColor
-}))(_t$1 || (_t$1 = _$1`
-   {
-    flex-grow: 0;
-    position: sticky;
-    top: 0;
-    left: auto;
-    right: 0;
-    background-color: ${0};
-    z-index: 2;
+function _taggedTemplateLiteralLoose(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
   }
-  .line-bottom {
-    left: calc(50%);
-    width: 22px;
-    bottom: 8px;
-    height: 1px;
-    position: absolute;
-    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    background-color: #fff;
-  }
-  .iconDesktop {
-    padding-right: 1.1em;
-  }
-  .iconMobile {
-    padding-right: 1.2em;
-  }
-  .title {
-    flex-grow: 1;
-    line-height: 1em;
-  }
-  .image {
-    max-height: 2.5em;
-    margin-left: 1em;
-  }
-  .toolbar {
-    min-height: 5.5em;
-  }
-`), props => props.backgroundColor);
 
-const Header = props => {
-  const {
-    headerLogo,
-    menuItems,
-    name,
-    backgroundColor,
-    anchor
-  } = props;
-  const [anchorEl, setAnchorEl] = anchor;
+  strings.raw = raw;
+  return strings;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteralLoose(["\n   {\n    flex-grow: 0;\n    position: sticky;\n    top: 0;\n    left: auto;\n    right: 0;\n    background-color: ", ";\n    z-index: 2;\n  }\n  .line-bottom {\n    left: calc(50%);\n    width: 22px;\n    bottom: 8px;\n    height: 1px;\n    position: absolute;\n    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\n    background-color: #fff;\n  }\n  .iconDesktop {\n    padding-right: 1.1em;\n  }\n  .iconMobile {\n    padding-right: 1.2em;\n  }\n  .title {\n    flex-grow: 1;\n    line-height: 1em;\n  }\n  .image {\n    max-height: 2.5em;\n    margin-left: 1em;\n  }\n  .toolbar {\n    min-height: 5.5em;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Style$1 = styled.div.attrs(function (props) {
+  return {
+    backgroundColor: props.backgroundColor
+  };
+})(_templateObject(), function (props) {
+  return props.backgroundColor;
+});
+
+var Header = function Header(props) {
+  var headerLogo = props.headerLogo,
+      menuItems = props.menuItems,
+      name = props.name,
+      backgroundColor = props.backgroundColor,
+      anchor = props.anchor;
+  var anchorEl = anchor[0],
+      setAnchorEl = anchor[1];
   return /*#__PURE__*/React.createElement(Style$1, {
     backgroundColor: backgroundColor
   }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement(AppBar, {
@@ -475,42 +469,26 @@ Header.propTypes = {
   menuItems: PropTypes.array
 };
 
-let _$2 = t => t,
-    _t$2;
-const Style$2 = styled.div.attrs(props => ({
-  backgroundImage: props.backgroundImage
-}))(_t$2 || (_t$2 = _$2`
-  .backgroundImage {
-    background-image:url('${0}');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    padding-top: 9em;
-    padding-bottom: 9em;
-    max-width: 100%;
-    position: relative;
-    color: white;
-    z-index: 1;
-  }
-  .title {
-    font-weight: 600;
-  }
-  .backgroundImage::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: -1;
-  }
-`), props => props.backgroundImage);
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n  .backgroundImage {\n    background-image:url('", "');\n    background-repeat: no-repeat;\n    background-attachment: fixed;\n    background-size: cover;\n    padding-top: 9em;\n    padding-bottom: 9em;\n    max-width: 100%;\n    position: relative;\n    color: white;\n    z-index: 1;\n  }\n  .title {\n    font-weight: 600;\n  }\n  .backgroundImage::after {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: rgba(0, 0, 0, 0.6);\n    z-index: -1;\n  }\n"]);
 
-const Presentation = ({
-  title,
-  image
-}) => {
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Style$2 = styled.div.attrs(function (props) {
+  return {
+    backgroundImage: props.backgroundImage
+  };
+})(_templateObject$1(), function (props) {
+  return props.backgroundImage;
+});
+
+var Presentation = function Presentation(_ref) {
+  var title = _ref.title,
+      image = _ref.image;
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Style$2, {
     backgroundImage: image
   }, /*#__PURE__*/React.createElement(Grid, {
