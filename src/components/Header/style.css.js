@@ -31,12 +31,23 @@ const Style = styled.div.attrs((props) => ({
     flex-grow: 1;
     line-height: 1em;
   }
-  .image {
-    max-height: 2.5em;
+  .toolbar {
+    min-height: 6.5em;
+    transition: min-height 0.25s ease-out;
+  }
+  .toolbar .image {
+    max-height: 2.8em;
+    transition: max-height 0.25s ease-out;
     margin-left: 1em;
   }
-  .toolbar {
-    min-height: 5.5em;
+  .toolbar.smaller {
+    min-height: 4.5em;
+    transition: min-height 0.25s ease-out;
+  }
+  .toolbar.smaller .image {
+    max-height: 2.2em;
+    transition: max-height 0.25s ease-out;
+    margin-left: 1em;
   }
 `;
 

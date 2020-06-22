@@ -7,8 +7,20 @@ import Logo from './Logo';
 import Style from './style.css';
 
 const Header = (props) => {
-  const { headerLogo, menuItems, name, backgroundColor, anchor } = props;
+  const { headerLogo, menuItems, name, backgroundColor, anchor, resize } = props;
   const [anchorEl, setAnchorEl] = anchor;
+  const [resizeToolbar, setResizeToolbar] = resize;
+  const shrinkOn = 150;
+
+  const resizeHeaderOnScroll = () => {
+    const distanceY = window.pageYOffset || document.documentElement.scrollTop;
+    if (distanceY > shrinkOn) {
+      setResizeToolbar('toolbar smaller')
+    } else {
+      setResizeToolbar('toolbar')
+    }
+  };
+  window.addEventListener('scroll', resizeHeaderOnScroll);
 
   return (
     <Style backgroundColor={backgroundColor}>
@@ -18,7 +30,7 @@ const Header = (props) => {
           elevation={0}
           title={<img src={headerLogo} alt={name} />}
         >
-          <Toolbar className="toolbar" disableGutters>
+          <Toolbar className={resizeToolbar || 'toolbar'} disableGutters>
             {menuItems.length > 0 && <MenuMobile menuItems={menuItems} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
             <Logo image={headerLogo} />
             {menuItems.length > 0 && <MenuDesktop menuItems={menuItems} />}

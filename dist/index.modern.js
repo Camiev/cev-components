@@ -409,7 +409,7 @@ function _taggedTemplateLiteralLoose(strings, raw) {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n   {\n    flex-grow: 0;\n    position: sticky;\n    top: 0;\n    left: auto;\n    right: 0;\n    background-color: ", ";\n    z-index: 2;\n  }\n  .line-bottom {\n    left: calc(50%);\n    width: 22px;\n    bottom: 8px;\n    height: 1px;\n    position: absolute;\n    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\n    background-color: #fff;\n  }\n  .iconDesktop {\n    padding-right: 1.1em;\n  }\n  .iconMobile {\n    padding-right: 1.2em;\n  }\n  .title {\n    flex-grow: 1;\n    line-height: 1em;\n  }\n  .image {\n    max-height: 2.5em;\n    margin-left: 1em;\n  }\n  .toolbar {\n    min-height: 5.5em;\n  }\n"]);
+  var data = _taggedTemplateLiteralLoose(["\n   {\n    flex-grow: 0;\n    position: sticky;\n    top: 0;\n    left: auto;\n    right: 0;\n    background-color: ", ";\n    z-index: 2;\n  }\n  .line-bottom {\n    left: calc(50%);\n    width: 22px;\n    bottom: 8px;\n    height: 1px;\n    position: absolute;\n    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\n    background-color: #fff;\n  }\n  .iconDesktop {\n    padding-right: 1.1em;\n  }\n  .iconMobile {\n    padding-right: 1.2em;\n  }\n  .title {\n    flex-grow: 1;\n    line-height: 1em;\n  }\n  .toolbar {\n    min-height: 6.5em;\n    transition: min-height 0.25s ease-out;\n  }\n  .toolbar .image {\n    max-height: 2.8em;\n    transition: max-height 0.25s ease-out;\n    margin-left: 1em;\n  }\n  .toolbar.smaller {\n    min-height: 4.5em;\n    transition: min-height 0.25s ease-out;\n  }\n  .toolbar.smaller .image {\n    max-height: 2.2em;\n    transition: max-height 0.25s ease-out;\n    margin-left: 1em;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -430,9 +430,25 @@ var Header = function Header(props) {
       menuItems = props.menuItems,
       name = props.name,
       backgroundColor = props.backgroundColor,
-      anchor = props.anchor;
+      anchor = props.anchor,
+      resize = props.resize;
   var anchorEl = anchor[0],
       setAnchorEl = anchor[1];
+  var resizeToolbar = resize[0],
+      setResizeToolbar = resize[1];
+  var shrinkOn = 150;
+
+  var resizeHeaderOnScroll = function resizeHeaderOnScroll() {
+    var distanceY = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (distanceY > shrinkOn) {
+      setResizeToolbar('toolbar smaller');
+    } else {
+      setResizeToolbar('toolbar');
+    }
+  };
+
+  window.addEventListener('scroll', resizeHeaderOnScroll);
   return /*#__PURE__*/React.createElement(Style$1, {
     backgroundColor: backgroundColor
   }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement(AppBar, {
@@ -443,7 +459,7 @@ var Header = function Header(props) {
       alt: name
     })
   }, /*#__PURE__*/React.createElement(Toolbar, {
-    className: "toolbar",
+    className: resizeToolbar || 'toolbar',
     disableGutters: true
   }, menuItems.length > 0 && /*#__PURE__*/React.createElement(MenuMobile, {
     menuItems: menuItems,
