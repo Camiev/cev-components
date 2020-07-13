@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Box, Icon, Avatar, Typography, Card, CardActionArea, CardMedia, Button, Grid, Link as Link$1, Container, Hidden, IconButton, Menu, MenuItem, AppBar, Toolbar } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { Facebook, LinkedIn, Instagram } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import styled from 'styled-components';
@@ -528,5 +528,70 @@ Presentation.propTypes = {
   image: PropTypes.string
 };
 
-export { Division, Footer, Header, Presentation };
+var CevMuiTheme = function CevMuiTheme(props) {
+  if (props === void 0) {
+    props = {};
+  }
+
+  var font = props.font || '"Open sans", "Helvetica", "Arial", sans-serif';
+  var colorPrimary = props.colorPrimary || '#6200ee';
+  var colorSecondary = props.colorSecondary || '#03dac6';
+  return createMuiTheme({
+    typography: {
+      fontFamily: font
+    },
+    palette: {
+      primary: {
+        main: colorPrimary
+      },
+      secondary: {
+        main: colorSecondary
+      }
+    },
+    overrides: {
+      MuiButton: {
+        root: {
+          textAlign: 'center',
+          position: 'inherit',
+          borderRadius: '1em'
+        },
+        label: {
+          alignItems: 'flex-start'
+        }
+      },
+      MuiTypography: {
+        root: {
+          whiteSpace: 'pre-wrap'
+        },
+        h4: {
+          fontWeight: 600,
+          textTransform: 'uppercase',
+          paddingTop: '0.5em'
+        },
+        subtitle1: {
+          fontWeight: 600,
+          color: colorPrimary
+        },
+        subtitle2: {
+          fontSize: '1.1em'
+        }
+      },
+      MuiGrid: {
+        container: {
+          paddingTop: '1em',
+          paddingBottom: '1em'
+        }
+      },
+      MuiAvatar: {
+        root: {
+          width: '10em',
+          height: '10em',
+          margin: '1em'
+        }
+      }
+    }
+  });
+};
+
+export { CevMuiTheme, Division, Footer, Header, Presentation };
 //# sourceMappingURL=index.modern.js.map

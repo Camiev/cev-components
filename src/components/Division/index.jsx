@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   mainBox: {
     marginTop: '1em',
     marginBottom: '1em',
-  }
+  },
 });
 
 const Division = (props) => {
