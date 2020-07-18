@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 import Style from './style.css';
 
 const Presentation = ({ title, image }) => {
+  const classes = Style({ image });
   return (
     <div>
-     <Style backgroundImage={image}>
-      <Grid className="backgroundImage" align="center">
-        <Grid item xs={10}>
-          <Typography variant="h2" className="title">
-            {title}
-          </Typography>
+      <div className={classes.background}>
+        <Grid align="center">
+          <Grid item xs={10}>
+            <Typography variant="h2" className="title">
+              {title}
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-    </Style>
+      </div>
     </div>
   );
 };

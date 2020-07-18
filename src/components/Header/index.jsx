@@ -7,37 +7,61 @@ import Logo from './Logo';
 import Style from './style.css';
 
 const Header = (props) => {
-  const { headerLogo, menuItems, name, backgroundColor, anchor, resize } = props;
+  const {
+    headerLogo,
+    menuItems,
+    name,
+    backgroundColor,
+    anchor,
+    resize,
+  } = props;
   const [anchorEl, setAnchorEl] = anchor;
   const [resizeToolbar, setResizeToolbar] = resize;
   const shrinkOn = 150;
+  const classes = Style({ color: backgroundColor });
 
   const resizeHeaderOnScroll = () => {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop;
-    if (distanceY > shrinkOn) {
-      setResizeToolbar('toolbar smaller')
+    if (distanceY >= shrinkOn) {
+      setResizeToolbar(true);
     } else {
-      setResizeToolbar('toolbar')
+      setResizeToolbar(false);
     }
   };
   window.addEventListener('scroll', resizeHeaderOnScroll);
 
   return (
-    <Style backgroundColor={backgroundColor}>
+    <div className={classes.init}>
       <Container>
         <AppBar
           position="static"
           elevation={0}
           title={<img src={headerLogo} alt={name} />}
         >
-          <Toolbar className={resizeToolbar || 'toolbar'} disableGutters>
-            {menuItems.length > 0 && <MenuMobile menuItems={menuItems} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
-            <Logo image={headerLogo} />
-            {menuItems.length > 0 && <MenuDesktop menuItems={menuItems} />}
+          <Toolbar
+            className={resizeToolbar ? classes.toolbarSmaller : classes.toolbar}
+            disableGutters
+          >
+            {menuItems.length > 0 && (
+              <MenuMobile
+                menuItems={menuItems}
+                anchorEl={anchorEl}
+                setAnchorEl={setAnchorEl}
+                classes={classes}
+              />
+            )}
+            <Logo
+              image={headerLogo}
+              classes={classes}
+              resizeToolbar={resizeToolbar}
+            />
+            {menuItems.length > 0 && (
+              <MenuDesktop menuItems={menuItems} classes={classes} />
+            )}
           </Toolbar>
         </AppBar>
       </Container>
-    </Style>
+    </div>
   );
 };
 
@@ -52,7 +76,9 @@ Header.propTypes = {
   headerLogo: PropTypes.string,
   name: PropTypes.string,
   backgroundColor: PropTypes.string,
-  menuItems: PropTypes.array, // eslint-disable-line
+  menuItems: PropTypes.array,
+  anchor: PropTypes.array,
+  resize: PropTypes.array,
 };
 
 export default Header;

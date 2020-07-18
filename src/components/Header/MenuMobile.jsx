@@ -4,7 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const MenuMobile = ({ menuItems, anchorEl, setAnchorEl }) => {
+const MenuMobile = ({ menuItems, anchorEl, setAnchorEl, classes }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -17,7 +17,7 @@ const MenuMobile = ({ menuItems, anchorEl, setAnchorEl }) => {
     <Hidden mdUp>
       <IconButton
         edge="end"
-        className="menuButton"
+        className={classes.menuButton}
         color="inherit"
         aria-label="menu"
         onClick={handleClick}
@@ -51,7 +51,10 @@ MenuMobile.defaultProps = {
 };
 
 MenuMobile.propTypes = {
-  menuItems: PropTypes.array, // eslint-disable-line
+  menuItems: PropTypes.array,
+  anchorEl: PropTypes.obj,
+  setAnchorEl: PropTypes.func,
+  classes: PropTypes.obj,
 };
 
 export default MenuMobile;

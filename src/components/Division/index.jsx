@@ -169,7 +169,7 @@ Division.propTypes = {
   descriptionAlign: PropTypes.string,
   subtitle: PropTypes.node,
   path: PropTypes.string,
-  items: PropTypes.array, // eslint-disable-line
+  items: PropTypes.array,
   isMain: PropTypes.bool,
   children: PropTypes.node,
   textButton: PropTypes.string,

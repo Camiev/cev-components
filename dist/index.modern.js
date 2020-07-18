@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { Facebook, LinkedIn, Instagram } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
-import styled from 'styled-components';
 
 var gray = '#858588';
 var useStyles = makeStyles({
@@ -302,7 +301,8 @@ Footer.propTypes = {
 };
 
 var MenuDesktop = function MenuDesktop(_ref) {
-  var menuItems = _ref.menuItems;
+  var menuItems = _ref.menuItems,
+      classes = _ref.classes;
 
   var _useLocation = useLocation(),
       pathname = _useLocation.pathname;
@@ -317,9 +317,9 @@ var MenuDesktop = function MenuDesktop(_ref) {
       to: menu.path,
       key: menu.key
     }, /*#__PURE__*/React.createElement(Icon, {
-      className: "iconDesktop"
+      className: classes.iconDesktop
     }, menu.icon), /*#__PURE__*/React.createElement("span", null, menu.title, initPathname === menu.path && /*#__PURE__*/React.createElement("span", {
-      className: "line-bottom"
+      className: classes.lineBottom
     })));
   }));
 };
@@ -328,13 +328,15 @@ MenuDesktop.defaultProps = {
   menuItems: []
 };
 MenuDesktop.propTypes = {
-  menuItems: PropTypes.array
+  menuItems: PropTypes.array,
+  classes: PropTypes.obj
 };
 
 var MenuMobile = function MenuMobile(_ref) {
   var menuItems = _ref.menuItems,
       anchorEl = _ref.anchorEl,
-      setAnchorEl = _ref.setAnchorEl;
+      setAnchorEl = _ref.setAnchorEl,
+      classes = _ref.classes;
 
   var handleClick = function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -348,7 +350,7 @@ var MenuMobile = function MenuMobile(_ref) {
     mdUp: true
   }, /*#__PURE__*/React.createElement(IconButton, {
     edge: "end",
-    className: "menuButton",
+    className: classes.menuButton,
     color: "inherit",
     "aria-label": "menu",
     onClick: handleClick
@@ -372,21 +374,26 @@ MenuMobile.defaultProps = {
   menuItems: []
 };
 MenuMobile.propTypes = {
-  menuItems: PropTypes.array
+  menuItems: PropTypes.array,
+  anchorEl: PropTypes.obj,
+  setAnchorEl: PropTypes.func,
+  classes: PropTypes.obj
 };
 
 var Logo = function Logo(_ref) {
   var image = _ref.image,
-      alt = _ref.alt;
+      alt = _ref.alt,
+      classes = _ref.classes,
+      resizeToolbar = _ref.resizeToolbar;
   return /*#__PURE__*/React.createElement(Typography, {
     variant: "h6",
-    className: "title"
+    className: classes.title
   }, /*#__PURE__*/React.createElement(Link, {
     to: "/"
   }, image && /*#__PURE__*/React.createElement("img", {
     src: image,
     alt: alt,
-    className: "image"
+    className: resizeToolbar ? classes.imageSmaller : classes.image
   })));
 };
 
@@ -396,33 +403,60 @@ Logo.defaultProps = {
 };
 Logo.propTypes = {
   image: PropTypes.string,
-  alt: PropTypes.string
+  alt: PropTypes.string,
+  classes: PropTypes.obj,
+  resizeToolbar: PropTypes.bool
 };
 
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
+var Style$1 = makeStyles({
+  init: function init(props) {
+    return {
+      flexGrow: 0,
+      position: 'sticky',
+      top: 0,
+      left: 'auto',
+      right: 0,
+      backgroundColor: props.color,
+      zIndex: 2
+    };
+  },
+  lineBottom: {
+    left: 'calc(50%)',
+    width: '22px',
+    bottom: '8px',
+    height: '1px',
+    position: 'absolute',
+    transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    backgroundColor: '#fff'
+  },
+  iconDesktop: {
+    paddingRight: '1.1em'
+  },
+  iconMobile: {
+    paddingRight: '1.2em'
+  },
+  title: {
+    flexGrow: '1',
+    lineHeight: '1em'
+  },
+  toolbar: {
+    minHeight: '6.5em',
+    transition: 'min-height 0.25s ease-out'
+  },
+  image: {
+    maxHeight: '2.8em',
+    transition: 'max-height 0.25s ease-out',
+    marginLeft: '1em'
+  },
+  toolbarSmaller: {
+    minHeight: '4.5em',
+    transition: 'min-height 0.25s ease-out'
+  },
+  imageSmaller: {
+    maxHeight: '2.2em',
+    transition: 'max-height 0.25s ease-out',
+    marginLeft: '1em'
   }
-
-  strings.raw = raw;
-  return strings;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteralLoose(["\n   {\n    flex-grow: 0;\n    position: sticky;\n    top: 0;\n    left: auto;\n    right: 0;\n    background-color: ", ";\n    z-index: 2;\n  }\n  .line-bottom {\n    left: calc(50%);\n    width: 22px;\n    bottom: 8px;\n    height: 1px;\n    position: absolute;\n    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\n    background-color: #fff;\n  }\n  .iconDesktop {\n    padding-right: 1.1em;\n  }\n  .iconMobile {\n    padding-right: 1.2em;\n  }\n  .title {\n    flex-grow: 1;\n    line-height: 1em;\n  }\n  .toolbar {\n    min-height: 6.5em;\n    transition: min-height 0.25s ease-out;\n  }\n  .toolbar .image {\n    max-height: 2.8em;\n    transition: max-height 0.25s ease-out;\n    margin-left: 1em;\n  }\n  .toolbar.smaller {\n    min-height: 4.5em;\n    transition: min-height 0.25s ease-out;\n  }\n  .toolbar.smaller .image {\n    max-height: 2.2em;\n    transition: max-height 0.25s ease-out;\n    margin-left: 1em;\n  }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Style$1 = styled.div.attrs(function (props) {
-  return {
-    backgroundColor: props.backgroundColor
-  };
-})(_templateObject(), function (props) {
-  return props.backgroundColor;
 });
 
 var Header = function Header(props) {
@@ -437,20 +471,23 @@ var Header = function Header(props) {
   var resizeToolbar = resize[0],
       setResizeToolbar = resize[1];
   var shrinkOn = 150;
+  var classes = Style$1({
+    color: backgroundColor
+  });
 
   var resizeHeaderOnScroll = function resizeHeaderOnScroll() {
     var distanceY = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (distanceY > shrinkOn) {
-      setResizeToolbar('toolbar smaller');
+    if (distanceY >= shrinkOn) {
+      setResizeToolbar(true);
     } else {
-      setResizeToolbar('toolbar');
+      setResizeToolbar(false);
     }
   };
 
   window.addEventListener('scroll', resizeHeaderOnScroll);
-  return /*#__PURE__*/React.createElement(Style$1, {
-    backgroundColor: backgroundColor
+  return /*#__PURE__*/React.createElement("div", {
+    className: classes.init
   }, /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement(AppBar, {
     position: "static",
     elevation: 0,
@@ -459,16 +496,20 @@ var Header = function Header(props) {
       alt: name
     })
   }, /*#__PURE__*/React.createElement(Toolbar, {
-    className: resizeToolbar || 'toolbar',
+    className: resizeToolbar ? classes.toolbarSmaller : classes.toolbar,
     disableGutters: true
   }, menuItems.length > 0 && /*#__PURE__*/React.createElement(MenuMobile, {
     menuItems: menuItems,
     anchorEl: anchorEl,
-    setAnchorEl: setAnchorEl
+    setAnchorEl: setAnchorEl,
+    classes: classes
   }), /*#__PURE__*/React.createElement(Logo, {
-    image: headerLogo
+    image: headerLogo,
+    classes: classes,
+    resizeToolbar: resizeToolbar
   }), menuItems.length > 0 && /*#__PURE__*/React.createElement(MenuDesktop, {
-    menuItems: menuItems
+    menuItems: menuItems,
+    classes: classes
   })))));
 };
 
@@ -482,33 +523,50 @@ Header.propTypes = {
   headerLogo: PropTypes.string,
   name: PropTypes.string,
   backgroundColor: PropTypes.string,
-  menuItems: PropTypes.array
+  menuItems: PropTypes.array,
+  anchor: PropTypes.array,
+  resize: PropTypes.array
 };
 
-function _templateObject$1() {
-  var data = _taggedTemplateLiteralLoose(["\n  .backgroundImage {\n    background-image:url('", "');\n    background-repeat: no-repeat;\n    background-attachment: fixed;\n    background-size: cover;\n    padding-top: 9em;\n    padding-bottom: 9em;\n    max-width: 100%;\n    position: relative;\n    color: white;\n    z-index: 1;\n  }\n  .title {\n    font-weight: 600;\n  }\n  .backgroundImage::after {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: rgba(0, 0, 0, 0.6);\n    z-index: -1;\n  }\n"]);
-
-  _templateObject$1 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Style$2 = styled.div.attrs(function (props) {
-  return {
-    backgroundImage: props.backgroundImage
-  };
-})(_templateObject$1(), function (props) {
-  return props.backgroundImage;
+var Style$2 = makeStyles({
+  title: {
+    fontWeight: 600
+  },
+  background: function background(props) {
+    return {
+      color: 'white',
+      backgroundImage: "url(" + props.image + ")",
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed',
+      backgroundSize: 'cover',
+      paddingTop: '9em',
+      paddingBottom: '9em',
+      maxWidth: '100%',
+      position: 'relative',
+      zIndex: 1,
+      '&::after': {
+        content: "''",
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        background: 'rgba(0, 0, 0, 0.6)',
+        zIndex: -1
+      }
+    };
+  }
 });
 
 var Presentation = function Presentation(_ref) {
   var title = _ref.title,
       image = _ref.image;
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Style$2, {
-    backgroundImage: image
+  var classes = Style$2({
+    image: image
+  });
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: classes.background
   }, /*#__PURE__*/React.createElement(Grid, {
-    className: "backgroundImage",
     align: "center"
   }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
